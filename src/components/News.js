@@ -102,7 +102,7 @@ export class News extends Component {
   //   this.updateNews();
   // };
 
-  fetchMoreData = async() => {
+  fetchMoreData = async () => {
     this.setState({ page: this.state.page + 1 });
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=639114f0ae0c4ba1a6b64a2e9135e4b1&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     let data = await fetch(url);
@@ -111,7 +111,6 @@ export class News extends Component {
     this.setState({
       articles: this.state.articles.concat(parsedData.articles),
       totalArticles: parsedData.totalResults,
-      
     });
   };
   render() {
@@ -123,12 +122,7 @@ export class News extends Component {
             {this.capitalizeFirstLetter(this.props.category)}
           </h1>
           {/* {this.state.loading && <Spinner />} */}
-          <InfiniteScroll
-            dataLength={this.state.articles.length}
-            next={this.fetchMoreData}
-            hasMore={this.state.articles.length !== this.state.totalResults}
-            loader={<Spinner />}
-          />
+
           <div className="row">
             {this.state.articles.map((element) => {
               return (
@@ -150,6 +144,12 @@ export class News extends Component {
               );
             })}
           </div>
+          <InfiniteScroll
+            dataLength={this.state.articles.length}
+            next={this.fetchMoreData}
+            hasMore={this.state.articles.length !== this.state.totalResults}
+            loader={<Spinner />}
+          />
           {/* <div className="container">
             <div className="d-flex justify-content-between">
               <button
