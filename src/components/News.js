@@ -8,7 +8,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 const News = (props) => {
   const [articles, setarticles] = useState([]);
   const [loading, setloading] = useState(true);
-  const [page, setpage] = useState(1);
+  const [page, setpage] = useState(0);
   const [totalResults, settotalResults] = useState(0);
 
   const capitalizeFirstLetter = (string) => {
@@ -19,7 +19,7 @@ const News = (props) => {
     //   props.category
     // )}- Daily news App`;
     updateNews();
-  }, []);
+  }, []);//[]- 
 
   const updateNews = async (pageNo) => {
     props.setprogress(10);
@@ -28,11 +28,14 @@ const News = (props) => {
     }&category=${props.category}&apiKey=${props.apiKey}&page=${
       page + 1
     }&pageSize=${props.pageSize}`;
+    setpage(page + 1);
     let data = await fetch(url);
     props.setprogress(30);
+    console.log("data" , data);
     let parsedData = await data.json();
+
     props.setprogress(70);
-    console.log(parsedData);
+    console.log("parse",parsedData);
     setarticles(parsedData.articles);
     settotalResults(parsedData.totalResults);
     setloading(false);

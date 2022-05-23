@@ -33,7 +33,7 @@ const NewsItem = (props) => {
               By {author ? author : "Unknown"} on {new Date(date).toGMTString()}
             </small>
           </p>
-          <a href={newsUrl} target="_blank" className="btn btn-primary">
+          <a href={newsUrl} target="_blank" className="btn btn-primary" rel="noreferrer">
             Read more
           </a>
         </div>
